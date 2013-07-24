@@ -12,9 +12,9 @@ You may have to change your attributes of the swfobject like this:
 '<br>
 ...<br>
 var attributes = {<br>
-    &nbsp id:"flashObject",<br>
-  	&nbsp name: "flashObject",<br>
-    &nbsp style:"margin-top:25px;"<br>
+    <&nbsp> id:"flashObject",<br>
+  	<&nbsp> name: "flashObject",<br>
+    <&nbsp> style:"margin-top:25px;"<br>
 };<br>
 ...<br>
 '
