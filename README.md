@@ -11,7 +11,7 @@ It's 'flashObject' by defaul but feel free to change it when you call .init() fu
 You may have to change your attributes of the swfobject like this:
 '<br>
 ...<br>
-<span style="display:inline-block; width: 20;"></span>var attributes = {<br>
+var attributes = {<br>
 id:"flashObject",<br>
 name: "flashObject",<br>
 style:"margin-top:25px;"<br>
