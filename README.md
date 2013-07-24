@@ -11,10 +11,16 @@ It's 'flashObject' by defaul but feel free to change it when you call .init() fu
 You may have to change your attributes of the swfobject like this:
 '<br>
 ...<br>
+
+<p style="text-indent: 5em;">
+The first line of this paragraph will be indented about five characters, similar to a tabbed indent.
+</p>
+
 var attributes = {<br>
-    <&nbsp> id:"flashObject",<br>
-  	<&nbsp> name: "flashObject",<br>
-    <&nbsp> style:"margin-top:25px;"<br>
+id:"flashObject",<br>
+name: "flashObject",<br>
+style:"margin-top:25px;"<br>
+
 };<br>
 ...<br>
 '
