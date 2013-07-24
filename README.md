@@ -1,7 +1,7 @@
 BlastedMouseWheelBlock
 ======================
 
-Blocks simultaneous scrolling of flash file and browser, including buggy chrome pepper flash plugin!
+Blocks simultaneous scrolling of flash object and browser, including buggy chrome pepper flash plugin!
 
 Usage:
 Just call BlastedMouseWheelBlock.init(stage, flashID) somewhere in your code.
