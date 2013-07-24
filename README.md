@@ -9,12 +9,12 @@ flashID is the id or name (or both) of your SWFObject attributes array.
 It's 'flashObject' by defaul but feel free to change it when you call .init() function.
 
 You may have to change your attributes of the swfobject like this:
-'
-...
-var attributes = {
-    id:"flashObject",
-  	name: "flashObject",
-    style:"margin-top:25px;"
-};
-...
+'<br>
+...<br>
+var attributes = {<br>
+    id:"flashObject",<br>
+  	name: "flashObject",<br>
+    style:"margin-top:25px;"<br>
+};<br>
+...<br>
 '
