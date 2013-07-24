@@ -19,3 +19,5 @@ style:"margin-top:25px;"<br>
 };<br>
 ...<br>
 '
+
+Special thanks to the js guru for help with understanding js functions https://github.com/wip-studio ;D
