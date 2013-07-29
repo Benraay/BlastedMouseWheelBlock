@@ -5,6 +5,7 @@ package com.kumokairo.mousewheel
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.external.ExternalInterface;
+	import flash.system.Capabilities;
 	/**
 	 * BlastedMouseWheelBlock - stops simultaneous browser/Flash mousewheel scrolling including chrome pepper flash plugin
 	 * @author KumoKairo
@@ -28,11 +29,12 @@ package com.kumokairo.mousewheel
 		 * externalJavascriptFunction is a concatenation of three strings: part1 + your flash ID or NAME + part2
 		 */
 		private static const EXTERNAL_ALLOW_BROWSER_SCROLL_FUNCTION:String = "allowBrowserScroll";
-		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P1:String = "if (window.addEventListener) { window.addEventListener('mousewheel', wheelHandler, true); window.addEventListener('DOMMouseScroll', wheelHandler, true); window.addEventListener('scroll', wheelHandler, true); } window.onmousewheel = wheelHandler; document.onmousewheel = wheelHandler; var browserScrollAllow = true; function wheelHandler(event) { if (!event) {   event = window.event  } if(!browserScrollAllow) { if(window.chrome) { document.getElementById('";
-		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P2:String = "').scrollHappened(event.wheelDeltaY); } if(event.preventDefault) { event.preventDefault(); } else { event.returnValue = false; } } } function allowBrowserScroll(allow) { browserScrollAllow = allow; }";
+		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P1:String = "var browserScrollAllow = true; var isMac = false; function registerEventListeners(inputIsMac) {  if (window.addEventListener) {   window.addEventListener('mousewheel', wheelHandler, true);   window.addEventListener('DOMMouseScroll', wheelHandler, true);   window.addEventListener('scroll', wheelHandler, true); isMac = inputIsMac;  }  window.onmousewheel = wheelHandler;  document.onmousewheel = wheelHandler; } function wheelHandler(event) { //console.log(event.wheelDeltaY); //var delta = deltaFilter(event); var delta = event.wheelDeltaY;  if (!event) {   event = window.event  }  if (!browserScrollAllow) {   if (window.chrome || isMac) {    document.getElementById('";
+		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P2:String = "').scrollHappened(delta);   }   if (event.preventDefault) {    event.preventDefault();   } else {    event.returnValue = false;   }  } } function allowBrowserScroll(allow) {  browserScrollAllow = allow; } function deltaFilter(event) {  var delta = 0;  if (event.wheelDelta) {   delta = event.wheelDelta / 40;   if (window.opera) delta = -delta;  } else if (event.detail) {   delta = -event.detail;  } // if (event.preventDefault) event.preventDefault();  return delta; }";
 		private static var externalJavascriptFunction:String;
 		
 		private static var nativeStage:Stage;
+		private static var isMac:Boolean;
 		//private static var curren
 		public function BlastedMouseWheelBlock() 
 		{
@@ -48,18 +50,29 @@ package com.kumokairo.mousewheel
 		{
 			if (ExternalInterface.available)
 			{
+				isMac = Capabilities.os.toLowerCase().indexOf("mac") != -1;
+				
 				externalJavascriptFunction = EXTERNAL_JAVASCRIPT_FUNCTION_P1 + flashObjectID + EXTERNAL_JAVASCRIPT_FUNCTION_P2;
 				BlastedMouseWheelBlock.nativeStage = stage;
 				stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseOverStage);
 				stage.addEventListener(Event.MOUSE_LEAVE, mouseLeavesStage);
+				stage.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 			
-				ExternalInterface.addCallback("scrollHappened", scrollHappened);
 				ExternalInterface.call("eval", externalJavascriptFunction);
+				
+				ExternalInterface.addCallback("scrollHappened", scrollHappened);
+				
+				ExternalInterface.call("registerEventListeners", isMac);
 			}
 			else
 			{
 				throw new UninitializedError(NO_EXTERNAL_INTERFACE_ERROR);
 			}
+		}
+		
+		static private function onMouseWheel(e:MouseEvent):void 
+		{
+			
 		}
 		
 		static private function scrollHappened(wheelDelta:Number):void 
