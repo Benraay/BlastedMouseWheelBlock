@@ -14,6 +14,11 @@ package com.kumokairo.mousewheel
 	 * your SWFOBJECT attributes. 
 	 * @see https://github.com/KumoKairo/BlastedMouseWheelBlock for possible updates and bug reports
 	 * feel free to modify this software
+	 * 
+	 * ========================== IMPORTANT ======================================================
+	 * WARNING!: JS string concatenation is used only to take advantage of SwfObject emeding tool
+	 * You can parse this JS code with http://jsbeautifier.org/ and see for youself
+	 * ===========================================================================================
 	 */ 
 	public class BlastedMouseWheelBlock 
 	{
@@ -29,13 +34,13 @@ package com.kumokairo.mousewheel
 		 * externalJavascriptFunction is a concatenation of three strings: part1 + your flash ID or NAME + part2
 		 */
 		private static const EXTERNAL_ALLOW_BROWSER_SCROLL_FUNCTION:String = "allowBrowserScroll";
-		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P1:String = "var browserScrollAllow = true; var isMac = false; function registerEventListeners(inputIsMac) {  if (window.addEventListener) {   window.addEventListener('mousewheel', wheelHandler, true);   window.addEventListener('DOMMouseScroll', wheelHandler, true);   window.addEventListener('scroll', wheelHandler, true); isMac = inputIsMac;  }  window.onmousewheel = wheelHandler;  document.onmousewheel = wheelHandler; } function wheelHandler(event) { //console.log(event.wheelDeltaY); //var delta = deltaFilter(event); var delta = event.wheelDeltaY;  if (!event) {   event = window.event  }  if (!browserScrollAllow) {   if (window.chrome || isMac) {    document.getElementById('";
-		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P2:String = "').scrollHappened(delta);   }   if (event.preventDefault) {    event.preventDefault();   } else {    event.returnValue = false;   }  } } function allowBrowserScroll(allow) {  browserScrollAllow = allow; } function deltaFilter(event) {  var delta = 0;  if (event.wheelDelta) {   delta = event.wheelDelta / 40;   if (window.opera) delta = -delta;  } else if (event.detail) {   delta = -event.detail;  } // if (event.preventDefault) event.preventDefault();  return delta; }";
+		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P1:String = "var browserScrollAllow=true;var isMac=false;function registerEventListeners(inputIsMac){if(window.addEventListener){window.addEventListener('mousewheel',wheelHandler,true);window.addEventListener('DOMMouseScroll',wheelHandler,true);window.addEventListener('scroll',wheelHandler,true);isMac=inputIsMac}window.onmousewheel=wheelHandler;document.onmousewheel=wheelHandler}function wheelHandler(event){var delta=deltaFilter(event);if(delta==undefined){delta=event.detail}if(!event){event=window.event}if(!browserScrollAllow){if(window.chrome||isMac){document.getElementById('";
+		private static const EXTERNAL_JAVASCRIPT_FUNCTION_P2:String = "').scrollHappened(delta)}if(event.preventDefault){event.preventDefault()}else{event.returnValue=false}}}function allowBrowserScroll(allow){browserScrollAllow=allow}function deltaFilter(event){var delta=0;if(event.wheelDelta){delta=event.wheelDelta/40;if(window.opera)delta=-delta}else if(event.detail){delta=-event.detail}return delta}";
 		private static var externalJavascriptFunction:String;
 		
 		private static var nativeStage:Stage;
 		private static var isMac:Boolean;
-		//private static var curren
+		
 		public function BlastedMouseWheelBlock() 
 		{
 			throw new IllegalOperationError(NEW_OBJECT_ERROR);
