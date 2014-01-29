@@ -82,7 +82,7 @@ package com.kumokairo.mousewheel
 		
 		static private function scrollHappened(wheelDelta:Number):void 
 		{
-			nativeStage.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_WHEEL, true, false, nativeStage.mouseX, nativeStage.mouseY, null, false, false, false, false, wheelDelta/40));
+			nativeStage.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_WHEEL, true, false, nativeStage.mouseX, nativeStage.mouseY, null, false, false, false, false, wheelDelta));
 		}
 		
 		static private function mouseOverStage(e:MouseEvent):void 
